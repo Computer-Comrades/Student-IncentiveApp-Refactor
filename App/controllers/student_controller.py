@@ -50,3 +50,8 @@ def generate_leaderboard():
     leaderboard.sort(key=lambda item: item['hours'], reverse=True)
 
     return leaderboard
+
+def get_all_students_json():
+    students = Student.query.all()
+    return [student.get_json() for student in students]
+

@@ -8,7 +8,12 @@ def login(username, password):
   user = result.scalar_one_or_none()
   if user and user.check_password(password):
     # Store ONLY the user id as a string in JWT 'sub'
-    return create_access_token(identity=str(user.id))
+    if user.role == 'student':
+      return create_access_token(identity=str(user.student_id))
+    elif user.role == 'staff':
+      return create_access_token(identity=str(user.staff_id))
+    else:
+      return create_access_token(identity=str(user.id))
   return None
 
 

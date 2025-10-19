@@ -18,3 +18,13 @@ class LoggedHours(db.Model):
 
     def __repr__(self):
         return f"[Log ID={self.id} StudentID ={self.student_id} Approved By (StaffID)={self.staff_id} Hours Approved={self.hours}]"
+
+    def get_json(self):
+        return {
+            'id': self.id,
+            'student_id': self.student_id,
+            'staff_id': self.staff_id,
+            'hours': self.hours,
+            'status': self.status,
+            'timestamp': self.timestamp.isoformat()
+        }

@@ -15,4 +15,13 @@ class Request(db.Model):
 
     
     def __repr__(self):
-        return f"**RequestID= {str(self.id):<5} StudentID={self.student_id:<5} Requested Hours={self.hours:<10} Status={self.status:<5}**"
+        return f"**RequestID={str(self.id):<5} StudentID={self.student_id:<5} Requested Hours={self.hours:<10} Status={self.status:<5}**"
+
+    def get_json(self):
+        return {
+            'id': self.id,
+            'student_id': self.student_id,
+            'hours': self.hours,
+            'status': self.status,
+            'timestamp': self.timestamp.isoformat()
+        }
