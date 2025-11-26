@@ -5,7 +5,7 @@ class LoggedHours(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     student_id = db.Column(db.Integer, db.ForeignKey('student.student_id'), nullable=False)
-    staff_id = db.Column(db.Integer, db.ForeignKey('staff.staff_id'), nullable=True)
+    staff_id = db.Column(db.Integer, db.ForeignKey('staff.staff_id'), nullable=False)
     hours = db.Column(db.Float, nullable=False)
     status = db.Column(db.String(20), nullable=False, default='approved')
     timestamp = db.Column(db.DateTime, default=datetime.utcnow)
