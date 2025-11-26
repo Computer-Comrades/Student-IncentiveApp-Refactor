@@ -32,6 +32,7 @@ class StudentService():
         
         return new_request, "Request submitted successfully. Accolade check run."
         
+        #gbnm
     @staticmethod
     def view_activity_history(student_id: int):
         """Queries the ActivityHistory log for the student."""
