@@ -28,7 +28,7 @@ class Student(User):
             'email': self.email
         }
     
-    # Method to create a new student
+    # Method to create a new student.
     def create_student(username, email, password):
         newstudent = Student(username=username, email=email, password=password)
         db.session.add(newstudent)

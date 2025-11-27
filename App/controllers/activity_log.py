@@ -1,5 +1,5 @@
 from App.database import db
-from App.models import Student, ActivityHistory # Import the ActivityHistory model
+from App.models import Student, ActivityHistory 
 
 class ActivityLog():
     """Service to handle activity logging and achievement viewing."""
@@ -12,7 +12,7 @@ class ActivityLog():
             student_id=student_id,
             command_type=command.__class__.__name__,
             description=command.get_description(),
-            staff_id=staff_id # Will be None for student-initiated requests or accolade checks
+            staff_id=staff_id # Will be None for student made  reuests or accolade checks
         )
         db.session.add(log_entry)
         db.session.commit()
@@ -28,9 +28,9 @@ class ActivityLog():
         
         awarded_names = set()
         for record in awarded_records:
-            # We must parse the description saved by the AccoladeCommand
+            # Parse the description saved by the AccoladeCommand
             if 'Accolades awarded' in record.description:
-                # Simple extraction, you might need a more robust parser for production
+                # Simple extraction
                 parts = record.description.split(':')
                 if len(parts) > 1:
                     for milestone in parts[1].split(','):
