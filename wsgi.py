@@ -11,6 +11,7 @@ from App.controllers.student_controller import *
 from App.controllers.staff_controller import *
 from App.controllers.app_controller import *
 from App.controllers import ( create_user, get_all_users_json, get_all_users, initialize )
+from App.models import ActivityHistory
 
 
 '''APP COMMANDS(TESTING PURPOSES)'''
