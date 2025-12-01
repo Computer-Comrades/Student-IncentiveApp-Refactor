@@ -354,7 +354,7 @@ test = AppGroup('test', help='Testing commands')
 @click.argument("type", default="all")
 def user_tests_command(type):
     if type == "unit":
-        sys.exit(pytest.main(["-k", "UserUnitTests or StudentUnitTests or StaffUnitTests or RequestUnitTests or LoggedHoursUnitTests"]))
+        sys.exit(pytest.main(["-k", "UserUnitTests or StudentUnitTests or StaffUnitTests or RequestUnitTests or LoggedHoursUnitTests or ActivityHistoryUnitTests"]))
     elif type == "int":
         sys.exit(pytest.main(["-k", "UserIntegrationTests or StudentIntegrationTests or StaffIntegrationTests "]))
     else:
