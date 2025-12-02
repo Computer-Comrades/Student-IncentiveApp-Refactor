@@ -13,7 +13,7 @@ class Staff(User):
     __mapper_args__ = {
         "polymorphic_identity": "staff"
     }
-    #calls parent constructor
+    #calls parent constructor-
     def __init__(self, username, email, password):
        super().__init__(username, email, password, role="staff")
 
@@ -35,26 +35,27 @@ class Staff(User):
         db.session.commit()
         return newstaff
     
-    # Method for staff to approve or deny requests
-    def approve_request(self, request):
-        from App.models import LoggedHours
-        if request.status != 'pending':
-            return None
-        # Mark request as approved
-        request.status = 'approved'
-        # Create a LoggedHours entry
-        logged = LoggedHours(student_id=request.student_id, staff_id=self.staff_id, hours=request.hours, status='approved')
-        db.session.add(logged)
-        db.session.commit()
-        return logged
     
-    #Method to deny a request
-    def deny_request(self, request):
-        if request.status != 'pending':
-            return False
-        request.status = 'denied'
-        db.session.commit()
-        return True
+    # # Method for staff to approve or deny requests
+    # def approve_request(self, request):
+    #     from App.models import LoggedHours
+    #     if request.status != 'pending':
+    #         return None
+    #     # Mark request as approved
+    #     request.status = 'approved'
+    #     # Create a LoggedHours entry
+    #     logged = LoggedHours(student_id=request.student_id, staff_id=self.staff_id, hours=request.hours, status='approved')
+    #     db.session.add(logged)
+    #     db.session.commit()
+    #     return logged
+    
+    # #Method to deny a request
+    # def deny_request(self, request):
+    #     if request.status != 'pending':
+    #         return False
+    #     request.status = 'denied'
+    #     db.session.commit()
+    #     return True
     
     
     

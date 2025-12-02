@@ -7,13 +7,10 @@ class ActivityHistory(db.Model):
     student_id = db.Column(db.Integer, db.ForeignKey('student.student_id'), nullable=False)
     
     # Store key details of the executed command
-    command_type = db.Column(db.String(50), nullable=False) 
-    description = db.Column(db.String(255), nullable=False) 
+    command_type = db.Column(db.String(50), nullable=False) # e.g., 'LogHoursCommand'
+    description = db.Column(db.String(255), nullable=False) # The string from get_description()
     timestamp = db.Column(db.DateTime, default=db.func.current_timestamp())
-    staff_id = db.Column(db.Integer, db.ForeignKey('staff.staff_id'), nullable=True) 
-
-    def __repr__(self):
-        return f"[Activity ID = {str(self.id)}    Timestamp = {str(self.timestamp)}   Command Type = {self.command_type}   Description = {self.description}   Student ID = {str(self.student_id):<3}   Staff ID = {str(self.staff_id):<3}]"
+    staff_id = db.Column(db.Integer, db.ForeignKey('staff.staff_id'), nullable=True) # Who performed the action
 
     def get_json(self):
         return {
