@@ -11,6 +11,7 @@ from App.controllers.student_controller import *
 from App.controllers.staff_controller import *
 from App.controllers.app_controller import *
 from App.controllers import ( create_user, get_all_users_json, get_all_users, initialize )
+from App.models import ActivityHistory
 
 
 '''APP COMMANDS(TESTING PURPOSES)'''
@@ -353,7 +354,7 @@ test = AppGroup('test', help='Testing commands')
 @click.argument("type", default="all")
 def user_tests_command(type):
     if type == "unit":
-        sys.exit(pytest.main(["-k", "UserUnitTests or StudentUnitTests or StaffUnitTests or RequestUnitTests or LoggedHoursUnitTests"]))
+        sys.exit(pytest.main(["-k", "UserUnitTests or StudentUnitTests or StaffUnitTests or RequestUnitTests or LoggedHoursUnitTests or ActivityHistoryUnitTests"]))
     elif type == "int":
         sys.exit(pytest.main(["-k", "UserIntegrationTests or StudentIntegrationTests or StaffIntegrationTests "]))
     else:
