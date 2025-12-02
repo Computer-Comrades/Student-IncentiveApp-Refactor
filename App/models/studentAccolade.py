@@ -2,6 +2,7 @@ from App.database import db
 
 class StudentAccolade(db.Model):
     __tablename__ = 'student_accolade'
+    
     id = db.Column(db.Integer, primary_key=True)
     student_id = db.Column(db.Integer, db.ForeignKey('student.student_id'), nullable=False)
     staff_id = db.Column(db.Integer, db.ForeignKey('staff.staff_id'), nullable=False)

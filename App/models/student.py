@@ -9,8 +9,6 @@ class Student(User):
     #relationship to LoggedHours and Request both One-to-Many
     loggedhours = db.relationship('LoggedHours', backref='student', lazy=True, cascade="all, delete-orphan")
     requests = db.relationship('Request', backref='student', lazy=True, cascade="all, delete-orphan")
-    accolades = db.relationship('Accolade', secondary='student_accolade', backref='students', lazy='dynamic')
-    milestones = db.relationship('Milestone', secondary='student_milestone', backref='students', lazy='dynamic')
 
     #Inheritance setup
     __mapper_args__ = {
