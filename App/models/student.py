@@ -14,7 +14,7 @@ class Student(User):
     __mapper_args__ = {
         "polymorphic_identity": "student"
     }
-    #calls parent constructor
+    #calls parent constructor:
     def __init__(self, username, email, password):
        super().__init__(username, email, password, role="student")
 
