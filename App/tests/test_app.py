@@ -3,11 +3,8 @@ from werkzeug.security import check_password_hash, generate_password_hash
 
 from App.main import create_app
 from App.database import db, create_db
-from App.models import User, Student, Request, Staff, LoggedHours
-from App.models import User
-from App.models import Staff
-from App.models import Student
-from App.models import Request
+from App.models import User, Student, Request, Staff, LoggedHours, ActivityHistory
+
 from App.controllers import (
     create_user,
     get_all_users_json,
@@ -120,7 +117,6 @@ class RequestUnitTests(unittest.TestCase):
 class LoggedHoursUnitTests(unittest.TestCase):
 
     def test_init_loggedhours(self):
-        from App.models import LoggedHours
         Testlogged = LoggedHours(student_id=1, staff_id=2, hours=20, status='approved')
         self.assertEqual(Testlogged.student_id, 1)
         self.assertEqual(Testlogged.staff_id, 2)
@@ -128,7 +124,6 @@ class LoggedHoursUnitTests(unittest.TestCase):
         self.assertEqual(Testlogged.status, 'approved')
 
     def test_repr_loggedhours(self):
-        from App.models import LoggedHours
         Testlogged = LoggedHours(student_id=1, staff_id=2, hours=20, status='approved')
         rep = repr(Testlogged)
         # Check all parts of the string representation
@@ -139,7 +134,30 @@ class LoggedHoursUnitTests(unittest.TestCase):
         self.assertIn("1", rep)
         self.assertIn("2", rep)
         self.assertIn("20", rep)
-        
+
+class ActivityHistoryUnitTests(unittest.TestCase):
+
+    def test_init_activityhistory(self):
+        Testactivityhist = ActivityHistory(student_id=1, command_type="LogHoursCommand", description="This is a test", staff_id=2)
+        self.assertEqual(Testactivityhist.student_id, 1)
+        self.assertEqual(Testactivityhist.staff_id, 2)
+        self.assertEqual(Testactivityhist.description, "This is a test")
+        self.assertEqual(Testactivityhist.command_type, "LogHoursCommand")
+
+    def test_repr_activityhistory(self):
+        Testactivityhist = ActivityHistory(student_id=1, command_type="LogHoursCommand", description="This is a test", staff_id=2)
+        rep = repr(Testactivityhist)
+        self.assertIn("Activity ID =", rep)
+        self.assertIn("Timestamp =", rep)
+        self.assertIn("Command Type =", rep)
+        self.assertIn("Description =", rep)
+        self.assertIn("Student ID =", rep)
+        self.assertIn("Staff ID =", rep)
+        self.assertIn("LogHoursCommand", rep)
+        self.assertIn("This is a test", rep)
+        self.assertIn("1", rep)
+        self.assertIn("2", rep)
+
 
 
     

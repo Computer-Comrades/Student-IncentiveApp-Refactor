@@ -12,6 +12,9 @@ class ActivityHistory(db.Model):
     timestamp = db.Column(db.DateTime, default=db.func.current_timestamp())
     staff_id = db.Column(db.Integer, db.ForeignKey('staff.staff_id'), nullable=True) 
 
+    def __repr__(self):
+        return f"[Activity ID = {str(self.id)}    Timestamp = {str(self.timestamp)}   Command Type = {self.command_type}   Description = {self.description}   Student ID = {str(self.student_id):<3}   Staff ID = {str(self.staff_id):<3}]"
+
     def get_json(self):
         return {
             'timestamp': str(self.timestamp),
