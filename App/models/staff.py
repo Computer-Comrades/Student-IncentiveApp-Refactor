@@ -35,6 +35,7 @@ class Staff(User):
         db.session.commit()
         return newstaff
     
+    
     # # Method for staff to approve or deny requests
     # def approve_request(self, request):
     #     from App.models import LoggedHours

@@ -40,7 +40,6 @@ class Student(User):
         # Only count approved logged hours.
         return sum(lh.hours for lh in self.loggedhours if lh.status == 'approved')
 
-
     # Method for student to request hours
     # def request_hours_confirmation(self, hours):
     #     from App.models import Request
