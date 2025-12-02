@@ -6,3 +6,5 @@ from .loggedhours import LoggedHours
 from .activity_history import ActivityHistory
 from .accolade import Accolade
 from .milestone import Milestone
+from .studentAccolade import StudentAccolade
+from .studentMilestone import StudentMilestone
