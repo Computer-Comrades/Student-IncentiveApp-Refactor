@@ -4,3 +4,5 @@ from .staff import Staff
 from .request import Request
 from .loggedhours import LoggedHours
 from .activity_history import ActivityHistory
+from .accolade import Accolade
+from .milestone import Milestone
