@@ -2,7 +2,7 @@ from App.models import Student, db
 from App.commands.RequestCommand import RequestCommand
 from App.controllers.activity_log import ActivityLog
 from App.models.activity_history import ActivityHistory 
-
+from App.models.milestone import Milestone
 from App.controllers.milestone_controller import MilestoneController
 
 

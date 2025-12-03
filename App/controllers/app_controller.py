@@ -1,5 +1,5 @@
 from App.database import db
-from App.models import User,Staff,Student,Request
+from App.models import User,Staff,Student,Request, LoggedHours, Accolade, Milestone
 
 #Comamand to list all staff in the database
 def printAllStaff():
@@ -57,7 +57,6 @@ def listAllPendingRequests():
 #Comamand to list all logged hours in the database
 def listAllloggedHours():
     print("\nAll Logged Hours:")
-    from App.models import LoggedHours
     logged_hours = LoggedHours.query.all()
     for log in logged_hours:
         print(log)
@@ -69,4 +68,20 @@ def listAllUsers():
     users = User.query.all()
     for user in users:
         print(user)
+    print("\n")
+
+#Comamand to list all accolades in the database
+def listAllAccolades():
+    print("\nAll Accolades:")
+    accolades = Accolade.query.all()
+    for accolade in accolades:
+        print(accolade)
+    print("\n")
+
+#Comamand to list all milestones in the database
+def listAllMilestones():
+    print("\nAll Milestones:")
+    milestones = Milestone.query.all()
+    for milestone in milestones:
+        print(milestone)
     print("\n")
