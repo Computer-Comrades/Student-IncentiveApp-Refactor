@@ -19,6 +19,9 @@ class ActivityHistory(db.Model):
         self.description = description
         self.staff_id = staff_id
 
+    def __repr__(self):
+        return f"[Activity ID = {self.id} Timestamp = {self.timestamp} Command Type = {self.command_type} Description = {self.description} Student ID = {self.student_id} Staff ID = {self.staff_id}]"
+
     def get_json(self):
         return {
             'timestamp': str(self.timestamp),
