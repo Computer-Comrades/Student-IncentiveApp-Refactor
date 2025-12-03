@@ -1,5 +1,5 @@
 from App.models import Request, Staff, db
-from .command_interface import Command
+from .Command import Command
 
 class DenyRequestCommand(Command):
     

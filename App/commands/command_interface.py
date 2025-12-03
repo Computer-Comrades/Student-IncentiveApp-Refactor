@@ -1,14 +1,25 @@
 from abc import ABC, abstractmethod
 
 class Command(ABC):
-    """Abstract Base Class for the Command interface."""
-    
+    """Abstract Base class for all commands in the incentive app."""
+
+    def __init__(self, actor=None, target=None):
+        # actor = person doing the action (student or staff)
+        # target = object of the action (e.g., request, logged hours)
+        self.actor = actor
+        self.target = target
+        self.result = None
+
     @abstractmethod
     def execute(self):
-        """Method to execute the encapsulated request."""
+        # carry out a command
         pass
 
     @abstractmethod
-    def get_description(self):
-        """Method to return a description for activity logging."""
+    def get_description(self) -> str:
+        # return a simple text description
         pass
+
+    def can_execute(self) -> bool:
+        # test to see if the command works
+        return True

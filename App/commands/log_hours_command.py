@@ -1,5 +1,5 @@
 from App.models import Student, Staff, Request, LoggedHours, db
-from .command_interface import Command
+from .Command import Command
 
 class LogHoursCommand(Command):
     
@@ -13,10 +13,10 @@ class LogHoursCommand(Command):
             print("Error: Request is not pending.")
             return False
         
-        # 1. Update Request (Receiver)
+        # 1. Update Request 
         self.request.status = 'approved'
         
-        # 2. Create LoggedHours Entry (Receiver)
+        # 2. Create LoggedHours Entry 
         logged = LoggedHours(
             student_id=self.request.student_id, 
             staff_id=self.staff.staff_id, 
@@ -32,4 +32,3 @@ class LogHoursCommand(Command):
     def get_description(self):
         return f"Approved {self.request.hours} hours for Student {self.student.username} (Request {self.request.id})"
 
-# Note: You would also need a DenyRequestCommand and a RequestConfirmationCommand

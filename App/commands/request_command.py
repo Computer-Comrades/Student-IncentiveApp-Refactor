@@ -1,5 +1,5 @@
 from App.models import Student, Request, db
-from .command_interface import Command 
+from .Command import Command 
 
 class RequestCommand(Command):
     

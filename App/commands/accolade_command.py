@@ -1,5 +1,5 @@
 from App.models import Student, ActivityHistory, db  # Import ActivityHistory
-from .command_interface import Command
+from .Command import Command
 
 class AccoladeCommand(Command):
     
@@ -15,7 +15,7 @@ class AccoladeCommand(Command):
             command_type='AccoladeCommand'
         ).all()
         
-        # Build a set of unique milestone names found in the history descriptions
+        # Building a set of unique milestone names found in the history descriptions
         logged_names = set()
         for record in awarded_records:
             if '10 Hours Milestone' in record.description:
@@ -44,13 +44,13 @@ class AccoladeCommand(Command):
     def execute(self):
         """Checks the student's hours, awards new milestones, and prepares for logging."""
         
-        # 1. Get current achievable milestones
+        # Get current achievable milestones
         achievable = self._calculate_accolades()
         
-        # 2. Get milestones already logged in history (Prevents duplication)
+        # Get milestones already logged in history 
         logged = self._get_logged_milestones()
         
-        # 3. Determine which milestones are achieved but NOT YET LOGGED
+        # Determine which milestones are achieved but logged
         newly_awarded = [m for m in achievable if m not in logged]
         
         self.accolades_awarded = newly_awarded
