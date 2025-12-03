@@ -1,5 +1,6 @@
 from App.database import db
 from App.models import User,Staff,Student,Request
+from App.controllers.student_invoker import StudentService
 
 def register_student(name,email,password):
     new_student=Student.create_student(name,email,password)
@@ -18,7 +19,7 @@ def create_hours_request(student_id,hours): #creates a new hours request for a s
     if not student:
         raise ValueError(f"Student with id {student_id} not found.")
     
-    req = student.request_hours_confirmation(hours)
+    req = StudentService.create_hours_request(student_id,hours)
     return req
 
 def fetch_requests(student_id): #fetch requests for a student
@@ -33,7 +34,7 @@ def fetch_accolades(student_id): #fetch accolades for a student
     if not student:
         raise ValueError(f"Student with id {student_id} not found.")
     
-    accolades = student.accolades()
+    accolades = StudentService.view_accolades(student_id)
     return accolades
 
 def generate_leaderboard():
@@ -50,6 +51,14 @@ def generate_leaderboard():
     leaderboard.sort(key=lambda item: item['hours'], reverse=True)
 
     return leaderboard
+
+def get_activity_history(student_id): #fetch activity history for a student
+    student = Student.query.get(student_id)
+    if not student:
+        raise ValueError(f"Student with id {student_id} not found.")
+    
+    history = StudentService.view_activity_history(student_id)
+    return history
 
 def get_all_students_json():
     students = Student.query.all()

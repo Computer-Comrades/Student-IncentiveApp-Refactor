@@ -27,7 +27,7 @@ class LogHoursCommand(Command):
         
         # 3. Commit the transaction
         db.session.commit()
-        return True
+        return logged
 
     def get_description(self):
         return f"Approved {self.request.hours} hours for Student {self.student.username} (Request {self.request.id})"

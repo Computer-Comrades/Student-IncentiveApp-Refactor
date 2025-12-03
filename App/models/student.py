@@ -14,7 +14,7 @@ class Student(User):
     __mapper_args__ = {
         "polymorphic_identity": "student"
     }
-    #calls parent constructor
+    #calls parent constructor:
     def __init__(self, username, email, password):
        super().__init__(username, email, password, role="student")
 
@@ -28,31 +28,37 @@ class Student(User):
             'email': self.email
         }
     
-    # Method to create a new student
+    # Method to create a new student.
     def create_student(username, email, password):
         newstudent = Student(username=username, email=email, password=password)
         db.session.add(newstudent)
         db.session.commit()
         return newstudent
     
+    # This method calculates total approved hours
+    def get_total_approved_hours(self):
+        # Only count approved logged hours.
+        return sum(lh.hours for lh in self.loggedhours if lh.status == 'approved')
+
+
     # Method for student to request hours
-    def request_hours_confirmation(self, hours):
-        from App.models import Request
-        request = Request(student_id=self.student_id, hours=hours, status='pending')
-        db.session.add(request)
-        db.session.commit()
-        return request
+    # def request_hours_confirmation(self, hours):
+    #     from App.models import Request
+    #     request = Request(student_id=self.student_id, hours=hours, status='pending')
+    #     db.session.add(request)
+    #     db.session.commit()
+    #     return request
     
-    # Method to calculate total approved hours and accolades
-    def accolades(self):
-        # Only count approved logged hours
-        total_hours = sum(lh.hours for lh in self.loggedhours if lh.status == 'approved')
-        accolades = []
-        if total_hours >= 10:
-            accolades.append('10 Hours Milestone')
-        if total_hours >= 25:
-            accolades.append('25 Hours Milestone')
-        if total_hours >= 50:
-            accolades.append('50 Hours Milestone')
-        return accolades
+    # # Method to calculate total approved hours and accolades
+    # def accolades(self):
+    #     # Only count approved logged hours
+    #     total_hours = sum(lh.hours for lh in self.loggedhours if lh.status == 'approved')
+    #     accolades = []
+    #     if total_hours >= 10:
+    #         accolades.append('10 Hours Milestone')
+    #     if total_hours >= 25:
+    #         accolades.append('25 Hours Milestone')
+    #     if total_hours >= 50:
+    #         accolades.append('50 Hours Milestone')
+    #     return accolades
 

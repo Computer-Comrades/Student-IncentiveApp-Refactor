@@ -11,7 +11,6 @@ from App.controllers.student_controller import *
 from App.controllers.staff_controller import *
 from App.controllers.app_controller import *
 from App.controllers import ( create_user, get_all_users_json, get_all_users, initialize )
-from App.models import ActivityHistory
 
 
 '''APP COMMANDS(TESTING PURPOSES)'''
@@ -205,6 +204,29 @@ def viewLeaderboard():
 app.cli.add_command(student_cli) # add the group to the cli
 
 
+#View History Command for students
+@student_cli.command("viewMyHistory", help="View activity history for a student")
+def viewMyHistory():
+    print("\n")
+    try:
+        student_id = int(input("Enter your student ID: "))
+        history = get_activity_history(student_id)
+
+        if not history:
+            print(f"No activity history found for student {student_id}.")
+            return
+        else:
+            print(f"Activity History for student {student_id}:")
+            for record in history:
+                print(f"[{record['timestamp']}] [{record['action']}] ({record['command_type']})")
+
+    except ValueError as e:
+        print(f"Error: {e}")
+    except Exception as e:
+        print(f"An error occurred: {e}")
+    print("\n")
+
+
 
 
 '''STAFF COMMANDS'''
@@ -269,7 +291,7 @@ def approveRequest():
         logged=results['logged_hours']
 
         if logged:
-            print(f"Request {request_id} for {req.hours} hours made by {student_name} approved by Staff {staff_name} (ID: {staff_id}). Logged Hours ID: {logged.id}")
+            print(f"Request {request_id} for {req.hours} hours made by {student_name} approved by Staff {staff_name} (ID: {staff_id}). LoggedHours ID: {logged.id}")
         else:
             print(f"Request {request_id} for {req.hours} hours made by {student_name} could not be approved (Already Processed).")
     
