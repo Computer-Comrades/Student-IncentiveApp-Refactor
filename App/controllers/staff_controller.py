@@ -1,5 +1,6 @@
 from App.database import db
 from App.models import User,Staff,Student,Request
+from App.controllers.staff_invoker import StaffService
 
 def register_staff(name,email,password): #registers a new staff member
     new_staff = Staff.create_staff(name, email, password)
@@ -24,7 +25,7 @@ def fetch_all_requests(): #fetches all pending requests for staff to review
     
     return requests_data
 
-def process_request_approval(staff_id, request_id): #staff approves a student's hours request
+def process_request_approval(staff_id, request_id): 
     staff = Staff.query.get(staff_id)
     if not staff:
         raise ValueError(f"Staff with id {staff_id} not found.")
@@ -35,7 +36,8 @@ def process_request_approval(staff_id, request_id): #staff approves a student's 
     
     student = Student.query.get(request.student_id)
     name = student.username if student else "Unknown" # should always find student if data integrity is maintained
-    logged = staff.approve_request(request)
+    logged = StaffService.approve_request_action(staff_id, request_id)
+
 
     return {
         'request': request,
@@ -55,7 +57,7 @@ def process_request_denial(staff_id, request_id): #staff denies a student's hour
     
     student = Student.query.get(request.student_id)
     name = student.username if student else "Unknown"
-    denied = staff.deny_request(request)
+    denied = StaffService.deny_request_action(staff_id, request_id)
     
     return {
         'request': request,
