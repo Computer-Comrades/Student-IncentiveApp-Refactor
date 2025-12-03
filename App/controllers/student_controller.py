@@ -1,6 +1,7 @@
 from App.database import db
 from App.models import User,Staff,Student,Request
 from App.controllers.student_invoker import StudentService
+from App.controllers.accolade_controller import AccoladeController
 
 def register_student(name,email,password):
     new_student=Student.create_student(name,email,password)
@@ -29,13 +30,22 @@ def fetch_requests(student_id): #fetch requests for a student
     
     return student.requests
 
-def fetch_accolades(student_id): #fetch accolades for a student
+#def fetch_accolades(student_id): #fetch accolades for a student
+#    student = Student.query.get(student_id)
+#    if not student:
+#        raise ValueError(f"Student with id {student_id} not found.")
+#    
+#    accolades = StudentService.view_accolades(student_id)
+#    return accolades
+
+def fetch_accolades(student_id):
     student = Student.query.get(student_id)
     if not student:
         raise ValueError(f"Student with id {student_id} not found.")
     
-    accolades = StudentService.view_accolades(student_id)
+    accolades = AccoladeController.get_student_accolade_details(student)
     return accolades
+
 
 def generate_leaderboard():
     students = Student.query.all()

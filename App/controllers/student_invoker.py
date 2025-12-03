@@ -3,6 +3,9 @@ from App.commands.RequestCommand import RequestCommand
 from App.controllers.activity_log import ActivityLog
 from App.models.activity_history import ActivityHistory 
 
+from App.controllers.milestone_controller import MilestoneController
+
+
 class StudentService():
     """Invoker and Query Layer for student-related features."""
     
@@ -33,14 +36,43 @@ class StudentService():
         
         return [record.get_json() for record in history_records]
 
+#    @staticmethod
+#    def view_accolades(student_id: int):
+#        """Queries the ActivityHistory via ActivityLog to return a list of awarded accolades."""
+#        student = Student.query.get(student_id)
+#        if not student:
+#            return []
+#        
+#        # The Invoker calls the ActivityLog to retrieve the data
+#        return ActivityLog.view_accolades_data(student)
+    
+#    @staticmethod
+#    def view_accolades(student_id: int):
+#        student = Student.query.get(student_id)
+#        if not student:
+#            return []
+#        
+#        return AccoladeController.get_student_accolade_details(student)
+
+
     @staticmethod
-    def view_accolades(student_id: int):
-        """Queries the ActivityHistory via ActivityLog to return a list of awarded accolades."""
+    def check_and_award_milestones(student_id: int):
+        """Check student's total approved hours and award milestones accordingly."""
         student = Student.query.get(student_id)
         if not student:
-            return []
+            return None, "Student not found."
         
-        # The Invoker calls the ActivityLog to retrieve the data
-        return ActivityLog.view_accolades_data(student)
-    
-            
+        total_hours = sum(lh.hours for lh in student.loggedhours if lh.status == 'approved')
+        
+        # Fetch all milestones
+        milestones = Milestone.query.order_by(Milestone.required_hours).all()
+        
+        for milestone in milestones:
+            if total_hours >= milestone.required_hours:
+                # Try awarding, ignore if already awarded
+                try:
+                    MilestoneController.award_milestone(student, milestone)
+                except ValueError:
+                    pass
+        
+        return True, "Milestone check complete."
