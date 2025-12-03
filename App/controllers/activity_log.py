@@ -1,7 +1,5 @@
 from App.database import db
-from App.models import Student
-from App.models.activity_history import ActivityHistory 
-from App.commands.Command import Command
+from App.models import Student, ActivityHistory 
 
 class ActivityLog():
     """Service to handle activity logging and achievement viewing."""
@@ -11,10 +9,10 @@ class ActivityLog():
         """Logs the successful execution of any command to the ActivityHistory model."""
         
         log_entry = ActivityHistory(
-            student_id,
-            command.__class__.__name__,
-            command.get_description(),
-            staff_id # Will be None for student made  reuests or accolade checks
+            student_id=student_id,
+            command_type=command.__class__.__name__,
+            description=command.get_description(),
+            staff_id=staff_id # Will be None for student made  reuests or accolade checks
         )
         db.session.add(log_entry)
         db.session.commit()
