@@ -1,6 +1,5 @@
 from App.models import Student, db
-from App.commands.request_command import RequestCommand
-from App.commands.accolade_command import AccoladeCommand
+from App.commands.RequestCommand import RequestCommand
 from App.controllers.activity_log import ActivityLog
 from App.models.activity_history import ActivityHistory 
 
@@ -45,20 +44,3 @@ class StudentService():
         return ActivityLog.view_accolades_data(student)
     
             
-    @staticmethod
-    def update_accolades(student_id: int):
-        
-        student = Student.query.get(student_id)
-        
-        if not student:
-            return None, "Student not found."
-        
-     # 3. Invoker creates and executes the Accolade Command
-        #    This checks if the new request makes the student eligible for a milestone
-        accolade_command = AccoladeCommand(student=student)
-        accolade_success = accolade_command.execute() 
-
-        # 4. Invoker logs the Accolade Command execution if successful
-        if accolade_success:
-             print(f"Got to this point.")
-             ActivityLog.log_command_execution(accolade_command, student_id, staff_id=None) 

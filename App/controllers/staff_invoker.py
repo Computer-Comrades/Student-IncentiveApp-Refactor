@@ -1,7 +1,8 @@
-from App.models import Student, db
-from App.commands.request_command import RequestCommand
-from App.commands.accolade_command import AccoladeCommand
-from App.controllers.activity_log import ActivityLog
+from App.models import Student, Staff, Request, db
+from App.commands.LogHoursCommand import LogHoursCommand
+from App.commands.DenyRequestCommand import DenyRequestCommand
+from App.commands.AccoladeCommand import AccoladeCommand
+from .activity_log import ActivityLog
 from App.models.activity_history import ActivityHistory 
 
 
