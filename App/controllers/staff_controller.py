@@ -1,5 +1,5 @@
 from App.database import db
-from App.models import User,Staff,Student,Request
+from App.models import User,Staff,Student,Request, LoggedHours
 from App.controllers.staff_invoker import StaffService
 
 def register_staff(name,email,password): #registers a new staff member

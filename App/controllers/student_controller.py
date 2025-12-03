@@ -19,7 +19,7 @@ def create_hours_request(student_id,hours): #creates a new hours request for a s
     if not student:
         raise ValueError(f"Student with id {student_id} not found.")
     
-    req = student.request_hours_confirmation(hours)
+    req = StudentService.create_hours_request(student_id,hours)
     return req
 
 def fetch_requests(student_id): #fetch requests for a student
@@ -34,7 +34,7 @@ def fetch_accolades(student_id): #fetch accolades for a student
     if not student:
         raise ValueError(f"Student with id {student_id} not found.")
     
-    accolades = student.accolades()
+    accolades = StudentService.view_accolades(student_id)
     return accolades
 
 def generate_leaderboard():
@@ -57,7 +57,7 @@ def get_activity_history(student_id): #fetch activity history for a student
     if not student:
         raise ValueError(f"Student with id {student_id} not found.")
     
-    history = StudentService.view_activity_history(student)
+    history = StudentService.view_activity_history(student_id)
     return history
 
 def get_all_students_json():

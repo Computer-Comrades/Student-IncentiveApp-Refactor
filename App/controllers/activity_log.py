@@ -1,5 +1,6 @@
 from App.database import db
-from App.models import Student, ActivityHistory 
+from App.models import Student
+from App.models.activity_history import ActivityHistory 
 from App.commands.Command import Command
 
 class ActivityLog():
