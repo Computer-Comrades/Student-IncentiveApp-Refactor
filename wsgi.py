@@ -74,6 +74,14 @@ def listDeniedRequests():
 def listloggedHours():
     listAllloggedHours()
 
+@app.cli.command ("listAccolades", help="Lists all accolades in the database")
+def listAccolades():
+    listAllAccolades()
+
+@app.cli.command ("listMilestones", help="Lists all milestones in the database")
+def listMilestones():
+    listAllMilestones()
+
 
 
 '''STUDENT COMMANDS'''
