@@ -19,7 +19,8 @@ from App.controllers.student_controller import (
     fetch_requests,
     get_approved_hours,
     fetch_accolades,
-    generate_leaderboard
+    generate_leaderboard,
+    get_activity_history
 )
 from App.controllers.staff_controller import (
     register_staff,
@@ -289,3 +290,20 @@ class StudentIntegrationTests(unittest.TestCase):
         assert 'zara' in names and 'omar' in names and 'leon' in names
         # assert relative ordering: zara (10) > omar (5) > leon (1)
         assert names.index('zara') < names.index('omar') < names.index('leon')
+
+    
+    def test_get_activity_history(self): 
+        student = Student.create_student("xavier", "xavier@example.com", "pass") 
+        staff = register_staff("teststaff3", "teststaff3@example.com", "pass")       
+
+        # Create and approve a request through the proper workflow  
+        #Logs the Request command 
+        req = create_hours_request(student.student_id, 27.0) 
+
+        #Logs the LogHours and Accolade commands
+        results = process_request_approval(staff.staff_id, req.id) 
+        history = get_activity_history(student.student_id) 
+        commands = [item['command_type'] for item in history] 
+
+        # Checks to make sure that the commands were reccorded 
+        assert 'RequestCommand' in commands and 'LogHoursCommand' in commands and 'AccoladeCommand' in commands 
