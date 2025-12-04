@@ -40,6 +40,7 @@ Intended users: administrators, staff reviewers, and students at educational ins
 | `flask student viewmyRequests` | List all requests made by a student (enter student ID) |
 | `flask student viewmyAccolades` | List all accolades earned by a student (enter student ID) |
 | `flask student viewLeaderboard` | View leaderboard of students ranked by approved hours |
+| `flask student viewMyHistory` | Shows history for students earned hours, accolades and milestones |
 
 
 ---
